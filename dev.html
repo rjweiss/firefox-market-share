@@ -1,0 +1,121 @@
+<html lang='en'>
+<head>
+    <title>Firefox Market Share</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css' rel='stylesheet' type='text/css'>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+
+    <link href='css/metricsgraphics.css' rel='stylesheet' type='text/css'>
+    <link href='css/metricsgraphics-demo.css' rel='stylesheet' type='text/css' id='light'>
+    <link href='' rel='stylesheet' type='text/css' id='dark'>
+
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.0/d3.min.js' charset='utf-8'></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src='js/metricsgraphics.js'></script>
+
+</head>
+
+<body>
+  <div id='container' class='container'>
+     <div id='content-body'>
+         <div id='head'>
+             <ul>
+                 <li><a href='#'>Code</a></li>
+                 <li><a href='#'>Issues</a></li>
+                 <li class='divider'>|</li>
+                 <li><a href="#" id="light-css" class="pill active">Light style</a></li>
+                 <li><a href="#" id="dark-css" class="pill">Dark style</a></li>
+                 <li class='divider'>|</li>
+                 <li id='last_date'>Data last pulled on<span></span></li>
+             </ul>
+
+             <h1>Firefox Market Share</h1>
+         </div>
+
+         <div id='description'>
+             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+         </div>
+
+        <div class='row'>
+          <div class='col-lg-12 text-center' id='buttons'></div>
+        </div>
+
+         <div id='trunk'>
+             <div class='row trunk-section'>
+                 <div class='col-lg-5'>
+                     <h2 class='trunk-title'>Web Traffic</h2>
+                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                     <p>Data source: <a href="#">Akamai Internet Observatory</a></p>
+                     <div class="collapse" id="collapse_webtraffic">
+                       <div class="well">
+                         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+                         <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+                       </div>
+                     </div>
+                    <p><a class="btn" data-toggle="collapse" href="#collapse_webtraffic">View data methodology »</a></p>
+                    <a href="#">Download as JSON</a>
+                 </div>
+                 <!-- <div class='col-lg-1'></div> -->
+                 <div class='col-lg-7'>
+                   <div class='legend1 text-right'></div>
+                         <div class='col-lg-12 gr text-center' id='webtraffic'></div>
+                    </div>
+                 </div>
+
+             <div class='row trunk-section'>
+                 <div class='col-lg-5'>
+                     <h2 class='trunk-title'>Pageviews</h2>
+                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                     <p>Data source: <a href="#">StatCounter</a></p>
+                     <div class="collapse" id="collapse_pageviews">
+                       <div class="well">
+                         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+                         <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+                         <p><strong>Time scale options</strong>: Weekly, Monthly</p>
+                         <p><strong>Earliest date</strong>: XXX</p>
+                       </div>
+                     </div>
+                    <p><a class="btn" data-toggle="collapse" href="#collapse_pageviews">View data methodology »</a></p>
+                     <a href="#">Download as JSON</a>
+                 </div>
+                 <div class='col-lg-7'>
+                     <div class='row'>
+                       <div class='legend2 text-right'></div>
+                         <div class='col-lg-12 gr text-center' id='pageviews'></div>
+                    </div>
+                 </div>
+             </div>
+
+             <div class='row trunk-section'>
+                 <div class='col-lg-5'>
+                     <h2 class='trunk-title'>Users</h2>
+                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                     <p>Data source: <a href="#">NetMarketShare</a></p>
+                     <div class="collapse" id="collapse_users">
+                       <div class="well">
+                         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+                         <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+                         <p><strong>Time scale options</strong>: Weekly, Monthly</p>
+                         <p><strong>Earliest date</strong>: XXX</p>
+                       </div>
+                     </div>
+                    <p><a class="btn" data-toggle="collapse" href="#collapse_users">View data methodology »</a></p>
+                    <a href="#">Download as JSON</a>
+                 </div>
+                 <div class='col-lg-7'>
+                     <div class='row'>
+                       <div class='legend3 text-right'></div>
+                         <div class='col-lg-12 gr text-center' id='users'></div>
+                    </div>
+                 </div>
+             </div>
+
+         </div>
+     </div>
+
+    <script src='js/main.js'></script>
+</body>
+</html>
