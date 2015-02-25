@@ -3,6 +3,7 @@
 $(document).ready(function() {
     var global = {};
 
+
     var trunk = {};
     trunk.width = 340;
     trunk.height = 200;
@@ -54,10 +55,52 @@ $(document).ready(function() {
         'label': '34'
     }];
 
+    // userdata = data.filter(function(d){
+    //     return d.type == 'dog';
+    // });
+    // console.log(userdata)
 
-    d3.json('data/output.json', function(data) {
-        for(var i = 0; i < data.length; i++) {
-            data[i] = MG.convert.date(data[i], 'date');
+
+    d3.json('data/monthly_data.json', function(data) {
+
+        var cf = crossfilter(data);
+        var byLevel = cf.dimension(function(p) { return p.level } );
+        var byOS = cf.dimension(function(p) { return p.os } );
+        var byPlatform = cf.dimension(function(p) { return p.platform } );
+        byLevel.filterExact('pageviews');
+        byOS.filterExact('all');
+        byPlatform.filterExact('desktop');
+
+        var pageview_data = byPlatform.top(Infinity);
+        pageview_data.sort(custom_sort);
+        console.log(pageview_data);
+        // pageview_data.forEach(function(p) {console.log(p.date)});
+
+        byLevel.filterAll();
+        byOS.filterAll('all');
+        byPlatform.filterAll('desktop');
+
+        byLevel.filterExact('users');
+        byOS.filterExact('all');
+        byPlatform.filterExact('desktop');
+
+        var user_data = byPlatform.top(Infinity);
+        user_data.sort(custom_sort);
+        console.log(pageview_data);
+        user_data.forEach(function(p) {console.log(p.date)});
+
+
+        var format = d3.time.format("%Y-%m-%d");
+        for(var i = 0; i < pageview_data.length; i++) {
+            // console.log(data[i])
+            try {
+                // console.log(data[i])
+                pageview_data[i].date = format.parse(pageview_data[i].date)
+                user_data[i].date = format.parse(user_data[i].date)
+            } catch (e) {
+                console.log('Failed to convert date');
+            }
+
         }
 
         MG.data_graphic({
@@ -80,11 +123,11 @@ $(document).ready(function() {
         MG.data_graphic({
             title:"Market Share by Pageviews",
             // description: "Try resizing your window.",
-            data: data,
+            data: pageview_data,
             full_width: true,
             format: 'percentage',
             chart_type:'line',
-            legend: ['Chrome','IE','Safari','Firefox'],
+            legend: ['Chrome', 'IE', 'Safari', 'Firefox', 'Opera', 'Other'],
             legend_target: '.legend2',
             height: trunk.height * 6 / 4,
             right: trunk.right,
@@ -92,17 +135,17 @@ $(document).ready(function() {
             target: '#pageviews',
             linked: true,
             x_accessor: 'date',
-            y_accessor: 'sc_value'
+            y_accessor: ['Chrome', 'IE', 'Safari', 'Firefox', 'Opera', 'Other']
         });
 
         MG.data_graphic({
             title:"Market Share by Users",
             // description: "Try resizing your window.",
-            data: data,
+            data: user_data,
             full_width: true,
             interpolate: 'basic',
             format: 'percentage',
-            legend: ['Chrome','IE','Safari','Firefox'],
+            legend: ['Chrome','IE','Safari','Firefox', 'Opera', 'Other'],
             legend_target: '.legend3',
             height: trunk.height * 6 / 4,
             right: trunk.right,
@@ -110,10 +153,13 @@ $(document).ready(function() {
             target: '#users',
             linked: true,
             x_accessor: 'date',
-            y_accessor: 'nms_value'
+            y_accessor: ['Chrome', 'Microsoft Internet Explorer', 'Safari', 'Firefox', 'Opera', 'Other']
         });
     });
 
+    function custom_sort(a, b) {
+        return new Date(a.date).getTime() - new Date(b.date).getTime();
+    }
 
     function assignEventListeners() {
         $('#dark-css').click(function () {
@@ -197,8 +243,10 @@ $(document).ready(function() {
         .button('platform', 'Platform', function(){console.log('switched platform')})
         .button('os', 'OS', function(){console.log('switched os')})
         .button('country', 'Country')
-        .callback(function(){console.log('replot')})
+        .callback(function(){console.log('wtf')})
         .display();
 
+        $('div.platform-btns button').prop('disabled', true);
+        $('div.os-btns button').prop('disabled', true);
         $('div.country-btns button').prop('disabled', true);
 })
