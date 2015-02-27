@@ -61,7 +61,7 @@ def initialize():
 
 def download_data(args):
     logger = logging.getLogger(__name__)
-    logger.info('Attempting to download market share data.')
+    logger.info('Now attempting to download {} NetMarketShare data.'.format(self.interval))
     nms_download_job = NetMarketShareDownloadJob(
                        args.jobtype, args.region, args.interval)
     sc_download_job = StatCounterDownloadJob(
@@ -86,7 +86,6 @@ def etl_data(output_dir, args):
     dash_etl_job = DashboardETLJob(args.interval)
     sc_data = sc_etl_job.run()
     nms_data = nms_etl_job.run()
-    logging.info('here')
     dash_etl_job.run() # For Firefox and Fennec dashboards
 
     if not sc_data:
