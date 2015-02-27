@@ -41,3 +41,9 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# All raw data files and logs
+json/**
+logs/**
+*.ipynb
+*.pyc
