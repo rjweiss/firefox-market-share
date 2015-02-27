@@ -1,0 +1,53 @@
+[netmarketshare]
+baseurl = http://www.netmarketshare.com/browser-market-share.aspx?
+loginurl = http://netmarketshare.com/common/pages/postlogin
+output_dir = local/output/directory/netmarketshare #XXX
+s3_output_dir = s3/output/directory/netmarketshare #XXX
+account = nms_acct_login #XXX
+passwd = nms_acct_passwd #XXX
+ua = user-agent-string #XXX
+
+[statcounter]
+baseurl = http://gs.statcounter.com/chart.php?
+output_dir = local/output/directory/netmarketshare #XXX
+s3_output_dir = s3/output/directory/statcounter #XXX
+
+[settings]
+output_dir = local/output/directory/dashboard #XXX
+s3_output_dir = s3/output/directory/dashboard #XXX
+aws_id_key = idkeygoeshere #XXX
+aws_secret_key = secretkeygoeshere #XXX
+s3_bucket_name = bucketnamegoeshere #XXX
+
+[loggers]
+keys=root
+
+[logger_root]
+handlers=screen,file
+level=NOTSET
+
+[formatters]
+keys=simple,complex
+
+[formatter_simple]
+format=%(asctime)s - %(name)s - %(levelname)s - %(message)s
+
+[formatter_complex]
+format=%(asctime)s - %(name)s - %(levelname)s - %(module)s : %(lineno)d - %(message)s
+
+[handlers]
+keys=file,screen
+
+[handler_file]
+class=handlers.TimedRotatingFileHandler
+interval=midnight
+backupCount=5
+formatter=complex
+level=DEBUG
+args=('log/directory/here',) #XXX
+
+[handler_screen]
+class=StreamHandler
+formatter=simple
+level=INFO
+args=(sys.stdout,)

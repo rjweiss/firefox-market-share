@@ -47,3 +47,4 @@ json/**
 logs/**
 *.ipynb
 *.pyc
+config.cfg
