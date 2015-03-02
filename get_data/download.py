@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 # XXX Need countries and operating systems
 import requests
-import simplejson
 import logging
 import datetime
 import time
@@ -9,6 +8,7 @@ import sys
 import os
 import csv
 import json
+import simplejson
 import StringIO
 import io
 import itertools
@@ -113,7 +113,8 @@ class NetMarketShareDownloadJob(object):
         try:
             r = self.session.get(url, timeout=180)
         except requests.exceptions.RequestException as e:
-            sys.exit(e)
+            logging.critical(e)
+            sys.exit()
         return r
 
     def write_data(self, payload, query):
@@ -124,7 +125,7 @@ class NetMarketShareDownloadJob(object):
         self.logger.debug("Saving as " + fname)
 
         with io.open(fname, 'w', encoding='utf-8') as f:
-            f.write(unicode(simplejson.dumps(payload, ensure_ascii=False)))
+            f.write(unicode(json.dumps(payload, ensure_ascii=False)))
         return True
 
     def run(self):

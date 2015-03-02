@@ -61,7 +61,7 @@ def initialize():
 
 def download_data(args):
     logger = logging.getLogger(__name__)
-    logger.info('Now attempting to download {} NetMarketShare data.'.format(self.interval))
+    logger.info('Now attempting to download {} NetMarketShare data.'.format(args.interval))
     nms_download_job = NetMarketShareDownloadJob(
                        args.jobtype, args.region, args.interval)
     sc_download_job = StatCounterDownloadJob(

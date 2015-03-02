@@ -44,7 +44,9 @@ Temporary Items
 
 # All raw data files and logs
 json/**
-logs/**
+**/logs/**
+**/data/**
 *.ipynb
 *.pyc
 config.cfg
+*.json
