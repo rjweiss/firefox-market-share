@@ -117,7 +117,8 @@ class NetMarketShareDownloadJob(object):
         return r
 
     def write_data(self, payload, query):
-        fname_params = {k: query[v] for k, v in params.iteritems()}
+        #fname_params = {k: query[v] for k, v in params.iteritems()}
+	fname_params = dict((k, v) for (k, v) in params.iteritems())
         fname = '_'.join(['-'.join(el) for el in list(fname_params.iteritems())]) + '.json'
         fname = fname.replace('*', 'A') # Windows-friendly filename
         fname = os.path.join(self.output_dir, fname)

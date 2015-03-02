@@ -223,15 +223,14 @@ class DashboardETLJob(object):
 
     def extract(self):
         self.get_files()
-        if self.interval == 'monthly':
-            with open(os.path.join(self.output_dir, 'monthly_data.json'), 'r') as infile:
-                payload = json.load(infile)
-                self.payload = payload
+        with open(os.path.join(self.output_dir, '{}_data.json'.format(self.interval)), 'r') as infile:
+            payload = json.load(infile)
+            return payload
 
-    def transform(self):
+    def transform(self, payload):
         # XXX Yuck.
-        pageviews = self.payload['pageviews']
-        users = self.payload['users']
+        pageviews = payload['pageviews']
+        users = payload['users']
         fennec_pageviews = []
         firefox_pageviews = []
         fennec_users = []
@@ -287,7 +286,7 @@ class DashboardETLJob(object):
 
     def run(self):
         payload = self.extract()
-        firefox, fennec = self.transform()
+        firefox, fennec = self.transform(payload)
 
         with open(os.path.join(self.output_dir, 'firefox_marketshare_{}.json'.format(self.interval)), 'w') as outfile:
             json.dump(firefox, outfile)
