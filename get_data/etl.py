@@ -223,7 +223,7 @@ class DashboardETLJob(object):
 
     def extract(self):
         self.get_files()
-        with open(os.path.join(self.output_dir, '{}_data.json'.format(self.interval)), 'r') as infile:
+        with open(os.path.join(self.output_dir, '{0}_data.json'.format(self.interval)), 'r') as infile:
             payload = json.load(infile)
             return payload
 
@@ -288,8 +288,8 @@ class DashboardETLJob(object):
         payload = self.extract()
         firefox, fennec = self.transform(payload)
 
-        with open(os.path.join(self.output_dir, 'firefox_marketshare_{}.json'.format(self.interval)), 'w') as outfile:
+        with open(os.path.join(self.output_dir, 'firefox_marketshare_{0}.json'.format(self.interval)), 'w') as outfile:
             json.dump(firefox, outfile)
 
-        with open(os.path.join(self.output_dir, 'fennec_marketshare_{}.json'.format(self.interval)), 'w') as outfile:
+        with open(os.path.join(self.output_dir, 'fennec_marketshare_{0}.json'.format(self.interval)), 'w') as outfile:
             json.dump(fennec, outfile)

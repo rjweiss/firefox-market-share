@@ -61,7 +61,7 @@ def initialize():
 
 def download_data(args):
     logger = logging.getLogger(__name__)
-    logger.info('Now attempting to download {} NetMarketShare data.'.format(args.interval))
+    logger.info('Now attempting to download {0} NetMarketShare data.'.format(args.interval))
     nms_download_job = NetMarketShareDownloadJob(
                        args.jobtype, args.region, args.interval)
     sc_download_job = StatCounterDownloadJob(
@@ -70,10 +70,10 @@ def download_data(args):
     nms_data = nms_download_job.run()
     sc_data = sc_download_job.run()
     if not sc_data:
-        raise Exception('Failed to download {} StatCounter data'.format(
+        raise Exception('Failed to download {0} StatCounter data'.format(
                         args.interval))
     if not nms_data:
-        raise Exception('Failed to download {} NetMarketShare data'.format(
+        raise Exception('Failed to download {0} NetMarketShare data'.format(
                         args.interval))
     logger.info('Finished downloading market share data.')
 
@@ -90,10 +90,10 @@ def etl_data(output_dir, args):
 #    dash_etl_job.run() # For Firefox and Fennec dashboards
 
     if not sc_data:
-        raise Exception('Failed to ETL StatCounter {} data'.format(
+        raise Exception('Failed to ETL StatCounter {0} data'.format(
                         args.interval))
     if not nms_data:
-        raise Exception('Failed to ETL NetMarketShare {} data'.format(
+        raise Exception('Failed to ETL NetMarketShare {0} data'.format(
                         args.interval))
 
     dashboard_data = {
@@ -101,7 +101,7 @@ def etl_data(output_dir, args):
         'users': nms_data
     }
 
-    with open(os.path.join(output_dir, '{}_data.json'.format(args.interval)),
+    with open(os.path.join(output_dir, '{0}_data.json'.format(args.interval)),
               'wb') as outfile:
         json.dump(dashboard_data, outfile)
     logger.info('Retrieved and added {a}/{b} new measurements to dashboard'.format(
