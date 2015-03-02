@@ -118,8 +118,7 @@ class NetMarketShareDownloadJob(object):
         return r
 
     def write_data(self, payload, query):
-        #fname_params = {k: query[v] for k, v in params.iteritems()}
-	fname_params = dict((k, v) for (k, v) in params.iteritems())
+	fname_params = dict((k, query[v]) for (k, v) in params.iteritems())
         fname = '_'.join(['-'.join(el) for el in list(fname_params.iteritems())]) + '.json'
         fname = fname.replace('*', 'A') # Windows-friendly filename
         fname = os.path.join(self.output_dir, fname)
@@ -259,7 +258,7 @@ class StatCounterDownloadJob(object):
         self.logger.debug("Saving as " + fname)
 
         with io.open(fname, 'w', encoding='utf-8') as f:
-            f.write(unicode(simplejson.dumps(payload, ensure_ascii=False)))
+            f.write(unicode(json.dumps(payload, ensure_ascii=False)))
         return True
 
     def run(self):

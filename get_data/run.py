@@ -86,7 +86,6 @@ def etl_data(output_dir, args):
 #    dash_etl_job = DashboardETLJob(args.interval)
     sc_data = sc_etl_job.run()
     nms_data = nms_etl_job.run()
-    logging.info('here')
 #    dash_etl_job.run() # For Firefox and Fennec dashboards
 
     if not sc_data:
