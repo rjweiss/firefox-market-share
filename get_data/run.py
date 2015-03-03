@@ -83,10 +83,10 @@ def etl_data(output_dir, args):
     logger.info('Attempting to ETL market share data.')
     sc_etl_job = StatCounterETLJob(args.interval)
     nms_etl_job = NetMarketShareETLJob(args.interval)
-#    dash_etl_job = DashboardETLJob(args.interval)
+    dash_etl_job = DashboardETLJob(args.interval)
     sc_data = sc_etl_job.run()
     nms_data = nms_etl_job.run()
-#    dash_etl_job.run() # For Firefox and Fennec dashboards
+    dash_etl_job.run() # For Firefox and Fennec dashboards
 
     if not sc_data:
         raise Exception('Failed to ETL StatCounter {0} data'.format(
