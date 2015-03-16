@@ -111,6 +111,7 @@ class NetMarketShareDownloadJob(object):
     def request_data(self, url):
         self.logger.debug("Trying " + url)
         try:
+            time.sleep(5)
             r = self.session.get(url, timeout=180)
         except requests.exceptions.RequestException as e:
             logging.critical(e)
@@ -125,7 +126,9 @@ class NetMarketShareDownloadJob(object):
         self.logger.debug("Saving as " + fname)
 
         with io.open(fname, 'w', encoding='utf-8') as f:
+            logging.info(payload)
             f.write(unicode(json.dumps(payload, ensure_ascii=False)))
+
         return True
 
     def run(self):
