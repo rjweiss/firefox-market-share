@@ -92,9 +92,11 @@ class NetMarketShareDownloadJob(object):
             if self.timefilter == 'monthly':
                 interval = ['M']
                 timeunit = [self.get_all_months(120)[-1]]
+                # timeunit = [self.get_all_months(120)]
             elif self.timefilter == 'weekly':
                 interval = ['W']
                 timeunit = [self.get_all_weeks(519)[-1]]
+                # timeunit = [self.get_all_weeks(519)]
 
         if self.regionfilter == 'countries':
             countries = ['ZW','ZM','ZA','YU','YT','YE','XK','WS','WF','VU','VN','VI','VG','VE','VC','VA','UZ','UY','US','UM','UK','UG','UA','TZ','TW','TV','TT','TR','TL','TP','TO','TN','TM','TK','TJ','TH','TG','TF','TD','TC','SZ','SY','SV','SU','ST','SS','SR','SO','SN','SM','SL','SK','SJ','SI','SH','SG','SE','SD','SC','SB','SA','RW','RU','RO','RS','RE','QA','PY','PW','PT','PS','PR','PN','PM','PL','PK','PH','PG','PF','PE','PA','OM','NZ','NU','NT','NR','NP','NO','NL','NI','NG','NF','NE','NC','NA','MZ','MY','MX','MW','MV','MU','MT','MS','MR','MQ','MP','MO','MN','MM','ML','MK','MH','MG','MF','ME','MD','MC','MA','LY','LV','LU','LT','LS','LR','LK','LI','LC','LB','LA','KZ','KY','KW','KR','KP','KN','KM','KI','KH','KG','KE','JP','JO','JM','JE','IT','IS','IR','IG','IO','IN','IM','IL','IE','ID','HU','HT','HR','HN','HM','HK','GY','GW','GU','GT','GS','GR','GQ','GP','GN','GM','GL','GI','GH','GG','GF','GE','GD','GB','GA','FX','FR','FO','FM','FK','FJ','FI','EU','ET','ES','ER','EH','EG','EE','EC','DZ','DO','DM','DK','DJ','DE','CZ','CY','CX','CV','CU','CS','CR','CO','CN','CM','CL','CK','CI','CH','CG','CF','ZR','CD','CC','CA','BZ','BY','BW','BV','BT','BS','BR','BO','BN','BM','BJ','BI','BH','BG','BF','BE','BD','BB','BA','AZ','AX','AW','AU','AT','AS','AR','AQ','AO','AN','AM','AL','AI','AG','AF','AE','AD','AC']
@@ -119,7 +121,7 @@ class NetMarketShareDownloadJob(object):
         return r
 
     def write_data(self, payload, query):
-	fname_params = dict((k, query[v]) for (k, v) in params.iteritems())
+        fname_params = dict((k, query[v]) for (k, v) in params.iteritems())
         fname = '_'.join(['-'.join(el) for el in list(fname_params.iteritems())]) + '.json'
         fname = fname.replace('*', 'A') # Windows-friendly filename
         fname = os.path.join(self.output_dir, fname)
@@ -200,13 +202,13 @@ class StatCounterDownloadJob(object):
                 dates.pop()
         elif self.jobfilter == 'update':
             if self.timefilter == 'monthly':
-                dates = list(self.get_all_months())
+                dates = [d for d in list(self.get_all_months())]
                 dates.pop()
-                dates = dates[-1]
+                dates = [dates[-1]]
             if self.timefilter == 'weekly':
-                dates = list(self.get_all_weeks())
-                dates.pop()
-                dates = dates[-1]
+                datelist = [d for d in list(self.get_all_weeks())]
+                datelist.pop()
+                dates = [datelist[-1]]
         return itertools.product(*[bar, device, stattype, region, granularity, dates])
 
     def build_query_string(self, qp):
