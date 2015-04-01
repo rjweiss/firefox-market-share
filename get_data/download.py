@@ -126,7 +126,6 @@ class NetMarketShareDownloadJob(object):
         self.logger.debug("Saving as " + fname)
 
         with io.open(fname, 'w', encoding='utf-8') as f:
-            logging.info(payload)
             f.write(unicode(json.dumps(payload, ensure_ascii=False)))
 
         return True
@@ -201,13 +200,13 @@ class StatCounterDownloadJob(object):
                 dates.pop()
         elif self.jobfilter == 'update':
             if self.timefilter == 'monthly':
-                dategen = list(self.get_all_months())
-                dategen.pop()
-                dates = dategen[-1]
+                dates = list(self.get_all_months())
+                dates.pop()
+                dates = dates[-1]
             if self.timefilter == 'weekly':
                 dates = list(self.get_all_weeks())
-                dategen.pop()
-                dates = dategen[-1]
+                dates.pop()
+                dates = dates[-1]
         return itertools.product(*[bar, device, stattype, region, granularity, dates])
 
     def build_query_string(self, qp):
